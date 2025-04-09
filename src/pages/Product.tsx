@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { API_PRODUCTS } from '../constants/api'
+import { useCart } from '../context/CartContext'
 
 interface ProductData {
   id: string
@@ -25,6 +26,7 @@ interface ProductData {
 export default function Product() {
   const { id } = useParams()
   const [product, setProduct] = useState<ProductData | null>(null)
+  const { addToCart } = useCart()
 
   useEffect(() => {
     async function fetchProduct() {
@@ -70,9 +72,20 @@ export default function Product() {
       <p className="text-yellow-600 mt-2">⭐ {product.rating}</p>
 
       <div className="mt-4">
-        <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-          Add to Cart
-        </button>
+      <button
+        onClick={() =>
+          addToCart({
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            discountedPrice: product.discountedPrice,
+            image: product.image,
+          })
+        }
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+      >
+        Add to Cart
+      </button>
       </div>
 
       {product.tags.length > 0 && (
@@ -103,5 +116,6 @@ export default function Product() {
         </div>
       )}
     </div>
+    
   )
 }
