@@ -1,9 +1,16 @@
 import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity } = useCart();
+  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
 
-  const total = cart.reduce((sum, item) => sum + item.discountedPrice * item.quantity, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.discountedPrice * item.quantity,
+    0
+  );
+
+  const navigate = useNavigate();
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -14,7 +21,10 @@ export default function Cart() {
       ) : (
         <div className="space-y-6">
           {cart.map((item) => (
-            <div key={item.id} className="flex items-center justify-between border-b pb-4">
+            <div
+              key={item.id}
+              className="flex items-center justify-between border-b pb-4"
+            >
               <div className="flex items-center gap-4">
                 <img
                   src={item.image.url}
@@ -23,9 +33,12 @@ export default function Cart() {
                 />
                 <div>
                   <h2 className="font-semibold">{item.title}</h2>
-                  <p>{item.discountedPrice} kr x {item.quantity}</p>
+                  <p>
+                    {item.discountedPrice} kr x {item.quantity}
+                  </p>
                   <p className="text-sm text-gray-500">
-                    Total: {(item.discountedPrice * item.quantity).toFixed(2)} kr
+                    Total: {(item.discountedPrice * item.quantity).toFixed(2)}{' '}
+                    kr
                   </p>
                 </div>
               </div>
@@ -45,7 +58,10 @@ export default function Cart() {
                   +
                 </button>
                 <button
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => {
+                    removeFromCart(item.id);
+                    toast.success(`${item.title} removed from cart`);
+                  }}
                   className="ml-4 text-red-500"
                 >
                   Remove
@@ -56,7 +72,13 @@ export default function Cart() {
 
           <div className="text-right mt-6">
             <p className="text-xl font-bold">Total: {total.toFixed(2)} kr</p>
-            <button className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            <button
+              onClick={() => {
+                clearCart();
+                navigate('/CheckoutSuccess');
+              }}
+              className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            >
               Checkout
             </button>
           </div>
