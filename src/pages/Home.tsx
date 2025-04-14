@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { API_PRODUCTS } from '../constants/api'
-import ProductCard from '../components/ProductCard'
+import ProductCard from '../components/ProductCard/ProductCard'
 
 interface Product {
   id: string
