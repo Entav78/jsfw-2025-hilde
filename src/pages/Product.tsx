@@ -1,53 +1,55 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { API_PRODUCTS } from '../constants/api'
-import { useCart } from '../context/CartContext'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { API_PRODUCTS } from '@/constants/api';
+import { useCart } from '@/context/CartContext';
 
 interface ProductData {
-  id: string
-  title: string
-  description: string
-  price: number
-  discountedPrice: number
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  discountedPrice: number;
   image: {
-    url: string
-    alt: string
-  }
-  rating: number
-  tags: string[]
+    url: string;
+    alt: string;
+  };
+  rating: number;
+  tags: string[];
   reviews: {
-    id: string
-    username: string
-    rating: number
-    description: string
-  }[]
+    id: string;
+    username: string;
+    rating: number;
+    description: string;
+  }[];
 }
 
 export default function Product() {
-  const { id } = useParams()
-  const [product, setProduct] = useState<ProductData | null>(null)
-  const { addToCart } = useCart()
+  const { id } = useParams();
+  const [product, setProduct] = useState<ProductData | null>(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const res = await fetch(`${API_PRODUCTS}/${id}`)
-        const json = await res.json()
-        setProduct(json.data)
+        const res = await fetch(`${API_PRODUCTS}/${id}`);
+        const json = await res.json();
+        setProduct(json.data);
       } catch (error) {
-        console.error('Failed to fetch product:', error)
+        console.error('Failed to fetch product:', error);
       }
     }
 
-    if (id) fetchProduct()
-  }, [id])
+    if (id) fetchProduct();
+  }, [id]);
 
-  if (!product) return <p>Loading product...</p>
+  if (!product) return <p>Loading product...</p>;
 
-  const hasDiscount = product.discountedPrice < product.price
+  const hasDiscount = product.discountedPrice < product.price;
   const discountPercent = hasDiscount
-    ? Math.round(((product.price - product.discountedPrice) / product.price) * 100)
-    : 0
+    ? Math.round(
+        ((product.price - product.discountedPrice) / product.price) * 100
+      )
+    : 0;
 
   return (
     <div className="max-w-3xl mx-auto p-4 bg-white text-black rounded shadow">
@@ -60,7 +62,9 @@ export default function Product() {
       <p className="text-gray-700 mb-2">{product.description}</p>
       <p className="text-lg font-semibold">
         {hasDiscount && (
-          <span className="line-through text-red-500 mr-2">{product.price} kr</span>
+          <span className="line-through text-red-500 mr-2">
+            {product.price} kr
+          </span>
         )}
         <span>{product.discountedPrice} kr</span>
         {hasDiscount && (
@@ -72,20 +76,20 @@ export default function Product() {
       <p className="text-yellow-600 mt-2">⭐ {product.rating}</p>
 
       <div className="mt-4">
-      <button
-        onClick={() =>
-          addToCart({
-            id: product.id,
-            title: product.title,
-            price: product.price,
-            discountedPrice: product.discountedPrice,
-            image: product.image,
-          })
-        }
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-      >
-        Add to Cart
-      </button>
+        <button
+          onClick={() =>
+            addToCart({
+              id: product.id,
+              title: product.title,
+              price: product.price,
+              discountedPrice: product.discountedPrice,
+              image: product.image,
+            })
+          }
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
+          Add to Cart
+        </button>
       </div>
 
       {product.tags.length > 0 && (
@@ -116,6 +120,5 @@ export default function Product() {
         </div>
       )}
     </div>
-    
-  )
+  );
 }

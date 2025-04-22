@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
-import { useCart } from '../context/CartContext';
+import { useCart } from '@/context/CartContext';
 
 export default function CheckoutSuccess() {
   const { clearCart } = useCart();
