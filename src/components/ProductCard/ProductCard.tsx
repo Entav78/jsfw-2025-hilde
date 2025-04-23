@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 interface ProductProps {
-  id: string
-  title: string
-  price: number
-  discountedPrice: number
+  id: string;
+  title: string;
+  price: number;
+  discountedPrice: number;
   image: {
-    url: string
-    alt: string
-  }
-  rating: number
+    url: string;
+    alt: string;
+  };
+  rating: number;
 }
 
 export default function ProductCard({
@@ -20,10 +20,13 @@ export default function ProductCard({
   image,
   rating,
 }: ProductProps) {
-  const hasDiscount = discountedPrice < price
+  const hasDiscount = discountedPrice < price;
   const discountPercent = hasDiscount
     ? Math.round(((price - discountedPrice) / price) * 100)
-    : 0
+    : 0;
+  const discountAmount = hasDiscount
+    ? (price - discountedPrice).toFixed(2)
+    : null;
 
   return (
     <div className="bg-white text-black rounded p-4 shadow relative">
@@ -44,6 +47,11 @@ export default function ProductCard({
         )}
         <span>{discountedPrice} kr</span>
       </p>
+      {hasDiscount && (
+        <p className="text-red-500 text-sm font-semibold mt-1">
+          -{discountPercent}% (Save {discountAmount} kr)
+        </p>
+      )}
       <p className="text-yellow-600 text-sm mb-2">⭐ {rating}</p>
 
       <Link
@@ -53,5 +61,5 @@ export default function ProductCard({
         View Product
       </Link>
     </div>
-  )
+  );
 }

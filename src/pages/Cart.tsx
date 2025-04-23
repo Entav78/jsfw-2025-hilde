@@ -10,6 +10,11 @@ export default function Cart() {
     0
   );
 
+  const totalSavings = cart.reduce(
+    (sum, item) => sum + (item.price - item.discountedPrice) * item.quantity,
+    0
+  );
+
   const navigate = useNavigate();
 
   return (
@@ -72,6 +77,9 @@ export default function Cart() {
 
           <div className="text-right mt-6">
             <p className="text-xl font-bold">Total: {total.toFixed(2)} kr</p>
+            <p className="text-sm text-green-400 font-semibold">
+              You saved {totalSavings.toFixed(2)} kr!
+            </p>
             <button
               onClick={() => {
                 clearCart();
