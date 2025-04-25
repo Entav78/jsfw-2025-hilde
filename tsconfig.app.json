@@ -14,7 +14,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-
+    "types": ["vitest"],
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
