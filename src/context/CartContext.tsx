@@ -45,11 +45,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const decreaseQuantity = (id: string) => {
     setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
+      prevCart.flatMap((item) => {
+        if (item.id !== id) return [item];
+
+        if (item.quantity > 1) {
+          return [{ ...item, quantity: item.quantity - 1 }];
+        }
+
+        // Optional: remove item completely if quantity would drop to 0
+        return [];
+      })
     );
   };
 
