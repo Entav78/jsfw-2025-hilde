@@ -1,9 +1,10 @@
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { cart, removeFromCart, updateQuantity, clearCart, decreaseQuantity } =
+    useCart();
 
   const total = cart.reduce(
     (sum, item) => sum + item.discountedPrice * item.quantity,
@@ -38,7 +39,7 @@ export default function Cart() {
                 />
                 <div>
                   <h2 className="font-semibold">{item.title}</h2>
-                  <p>
+                  <p data-testid="cart-item-qty">
                     {item.discountedPrice} kr x {item.quantity}
                   </p>
                   <p className="text-sm text-gray-500">
@@ -50,8 +51,8 @@ export default function Cart() {
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
                   className="bg-gray-200 px-2 rounded"
+                  onClick={() => decreaseQuantity(item.id)}
                 >
                   -
                 </button>
@@ -76,8 +77,13 @@ export default function Cart() {
           ))}
 
           <div className="text-right mt-6">
-            <p className="text-xl font-bold">Total: {total.toFixed(2)} kr</p>
-            <p className="text-sm text-green-400 font-semibold">
+            <p className="text-xl font-bold" data-testid="cart-total">
+              Total: {total.toFixed(2)} kr
+            </p>
+            <p
+              className="text-sm text-green-400 font-semibold"
+              data-testid="cart-saved"
+            >
               You saved {totalSavings.toFixed(2)} kr!
             </p>
             <button
