@@ -52,6 +52,8 @@ const renderWithMockCart = (
     removeFromCart: vi.fn(),
     updateQuantity: vi.fn(),
     clearCart: vi.fn(),
+
+    decreaseQuantity: vi.fn(),
   };
 
   return render(
@@ -99,6 +101,7 @@ describe('Cart component', () => {
       removeFromCart: vi.fn(),
       updateQuantity: updateQuantityMock,
       clearCart: vi.fn(),
+      decreaseQuantity: vi.fn(),
     };
 
     render(
@@ -125,6 +128,7 @@ describe('Cart component', () => {
       removeFromCart: removeMock,
       updateQuantity: vi.fn(),
       clearCart: vi.fn(),
+      decreaseQuantity: vi.fn(),
     };
 
     render(
@@ -166,6 +170,7 @@ describe('Cart component', () => {
       removeFromCart: vi.fn(),
       updateQuantity: updateQuantityMock,
       clearCart: vi.fn(),
+      decreaseQuantity: vi.fn(),
     };
 
     render(
