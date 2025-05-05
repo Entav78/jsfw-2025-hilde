@@ -74,6 +74,7 @@ export default function ContactPage() {
             Full Name
           </label>
           <input
+            id="fullName"
             type="text"
             name="fullName"
             value={form.fullName}
@@ -90,6 +91,7 @@ export default function ContactPage() {
             Subject
           </label>
           <input
+            id="subject"
             type="text"
             name="subject"
             value={form.subject}
@@ -106,6 +108,7 @@ export default function ContactPage() {
             Email
           </label>
           <input
+            id="email"
             type="email"
             name="email"
             value={form.email}
@@ -122,6 +125,7 @@ export default function ContactPage() {
             Message
           </label>
           <textarea
+            id="message"
             name="message"
             value={form.message}
             onChange={handleChange}

@@ -52,7 +52,6 @@ const renderWithMockCart = (
     removeFromCart: vi.fn(),
     updateQuantity: vi.fn(),
     clearCart: vi.fn(),
-
     decreaseQuantity: vi.fn(),
   };
 
@@ -92,7 +91,7 @@ describe('Cart component', () => {
     );
   });
 
-  test('calls updateQuantity when + button is clicked', () => {
+  test('increases quantity when + button is clicked', () => {
     const updateQuantityMock = vi.fn();
 
     const mockCartContext = {
@@ -118,7 +117,7 @@ describe('Cart component', () => {
     expect(updateQuantityMock).toHaveBeenCalledWith('1', 2); // expects id and new quantity
   });
 
-  test('calls removeFromCart when Remove button is clicked', () => {
+  test('removes item from cart when Remove button is clicked', () => {
     const removeMock = vi.fn();
     const cart = [...mockCart];
 
@@ -146,31 +145,28 @@ describe('Cart component', () => {
     expect(removeMock).toHaveBeenCalledWith('1'); // '1' is mockCart[0].id
   });
 
-  test('calls updateQuantity when - button is clicked', () => {
-    // Arrange
-    const mockCart: CartItem[] = [
-      {
-        id: '1',
-        title: 'Test Product',
-        price: 100,
-        discountedPrice: 80,
-        quantity: 2,
-        image: {
-          url: 'https://via.placeholder.com/150',
-          alt: 'Test image',
-        },
-      },
-    ];
-
-    const updateQuantityMock = vi.fn();
+  test('calls decreaseQuantity when - button is clicked', () => {
+    const decreaseQuantityMock = vi.fn();
 
     const mockCartContext = {
-      cart: mockCart,
+      cart: [
+        {
+          id: '1',
+          title: 'Test Product',
+          price: 100,
+          discountedPrice: 80,
+          quantity: 2,
+          image: {
+            url: 'https://via.placeholder.com/150',
+            alt: 'Test image',
+          },
+        },
+      ],
       addToCart: vi.fn(),
       removeFromCart: vi.fn(),
-      updateQuantity: updateQuantityMock,
+      updateQuantity: vi.fn(),
       clearCart: vi.fn(),
-      decreaseQuantity: vi.fn(),
+      decreaseQuantity: decreaseQuantityMock,
     };
 
     render(
@@ -181,11 +177,9 @@ describe('Cart component', () => {
       </CartContext.Provider>
     );
 
-    // Act
     const minusButton = screen.getByText('-');
     fireEvent.click(minusButton);
 
-    // Assert
-    expect(updateQuantityMock).toHaveBeenCalledWith('1', 1);
+    expect(decreaseQuantityMock).toHaveBeenCalledWith('1');
   });
 });
