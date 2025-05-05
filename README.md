@@ -80,7 +80,35 @@ Tested components/pages:
 
 ## ✅ Requirements Checklist
 
--
+- Homepage lists all products from the API
+
+- Search bar filters products live by title
+
+- Sorting options by price, name, and discount
+
+- Individual product page with detailed view and reviews
+
+- Add to Cart with toast confirmation
+
+- Cart page with quantity updates, total, and removal
+
+- Checkout button with redirect to success page
+
+- Checkout success page clears cart and confirms order
+
+- Contact page with validation (name, subject, email, message)
+
+- Toast notifications for key actions (add, remove, submit)
+
+- Responsive design (mobile, tablet, desktop)
+
+- TypeScript used throughout with strict types
+
+- Reusable components for layout, product cards, header
+
+- Tests for Header, CartPage, ContactPage, and HomePage
+
+- Netlify deployment live and functional
 
 ---
 
