@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './ProductCard.scss';
 
 interface ProductCardProps {
   id: string;
@@ -31,7 +32,7 @@ export default function ProductCard({
   return (
     <Link
       to={`/product/${id}`}
-      className="block bg-gray-100 rounded-lg p-4 shadow-sm hover:shadow-lg hover:ring-2 hover:ring-indigo-500 transform hover:-translate-y-1 transition duration-300 h-full"
+      className="product-card relative block bg-gray-100 rounded-lg p-4 shadow-sm hover:shadow-lg hover:ring-2 hover:ring-header transform hover:-translate-y-1 transition duration-300 h-full"
     >
       {hasDiscount && (
         <div className="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 text-xs font-bold rounded">

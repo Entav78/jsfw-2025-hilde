@@ -1,15 +1,35 @@
-.nav-link {
-  color: white;
-  transition: all 0.2s ease-in-out;
+@use '@/styles/variables' as *;
 
-  &:hover,
-  &:focus-visible {
-    color: rgb(191, 190, 192);
-    transform: scale(1.25);
-    text-decoration: underline;
-  }
+header {
+  background-color: $header-bg;
+  padding: 1rem 2rem;
+  height: $header-height;
 
-  &:focus {
-    outline: none;
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .nav-link {
+      display: inline-block;
+      color: $header-text;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 1rem;
+      transition: all 0.2s ease-in-out;
+
+      &:hover,
+      &:focus-visible {
+        color: $header-hover;
+        transform: scale(1.2);
+        text-decoration: underline;
+      }
+
+      &:focus-visible {
+       /* outline: 2px dashed $header-hover;
+        outline-offset: 3px;*/
+        outline: none;
+      }
+    }
   }
 }

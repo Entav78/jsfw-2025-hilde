@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { CartProvider } from '@/context/CartContext';
-import '@/style.scss';
+import '@/styles/style.scss';
 import App from '@/App.tsx';
 import { Toaster } from 'react-hot-toast';
 

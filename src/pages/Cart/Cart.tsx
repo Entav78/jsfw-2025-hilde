@@ -29,8 +29,9 @@ export default function Cart() {
           {cart.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between border-b pb-4"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white text-black p-4 rounded shadow-sm border-b"
             >
+              {/* Product Info */}
               <div className="flex items-center gap-4">
                 <img
                   src={item.image.url}
@@ -42,24 +43,27 @@ export default function Cart() {
                   <p data-testid="cart-item-qty">
                     {item.discountedPrice} kr x {item.quantity}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-600">
                     Total: {(item.discountedPrice * item.quantity).toFixed(2)}{' '}
                     kr
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              {/* Controls */}
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
-                  className="bg-gray-200 px-2 rounded"
+                  className="bg-gray-200 text-black px-2 py-1 rounded hover:bg-gray-300"
                   onClick={() => decreaseQuantity(item.id)}
+                  aria-label={`Decrease quantity of ${item.title}`}
                 >
-                  -
+                  −
                 </button>
-                <span>{item.quantity}</span>
+                <span className="px-2">{item.quantity}</span>
                 <button
                   onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  className="bg-gray-200 px-2 rounded"
+                  className="bg-gray-200 text-black px-2 py-1 rounded hover:bg-gray-300"
+                  aria-label={`Increase quantity of ${item.title}`}
                 >
                   +
                 </button>
@@ -68,7 +72,7 @@ export default function Cart() {
                     removeFromCart(item.id);
                     toast.success(`${item.title} removed from cart`);
                   }}
-                  className="ml-4 text-red-500"
+                  className="text-red-600 hover:underline ml-4"
                 >
                   Remove
                 </button>
