@@ -114,7 +114,7 @@ Tested components/pages:
 
 ## 👩‍💻 Author
 
-Hilde-Kathrine | [GitHub](https://github.com/hildemeister)
+Hilde-Kathrine | [GitHub](https://github.com/Entav78)
 
 ---
 
