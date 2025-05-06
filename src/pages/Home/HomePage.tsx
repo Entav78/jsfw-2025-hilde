@@ -60,9 +60,9 @@ export default function Home() {
     });
 
   return (
-    <div className="p-4">
+    <div className="mb-6">
       <SearchBar value={search} onChange={setSearch} />
-      <div className="mb-4 flex gap-4 items-center">
+      <div className="mt-2 flex gap-4 items-center">
         <label htmlFor="sort" className="font-semibold">
           Sort by:
         </label>
@@ -82,7 +82,7 @@ export default function Home() {
         </select>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-8 mt-6">
         {sortedProducts.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}
