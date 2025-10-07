@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, test, expect, beforeEach, vi } from 'vitest';
 import Cart from './Cart';
-import { CartContext } from '@/context/CartContext';
+import { CartContext } from '@/context/cart';
 import type { ReactElement } from 'react';
 import type { CartItem } from '@/types/cart';
 
