@@ -112,6 +112,63 @@ Tested components/pages:
 
 ---
 
+## ✍️ Portfolio 2 polish (2025)
+
+As part of Portfolio 2 I made a couple of small, high‑impact improvements.
+
+### 1) Reliable routing on Netlify
+
+Single‑page routing now works on hard refresh and deep links.
+
+- Added a SPA fallback so all requests serve `index.html`.
+- Works with either of these setups:
+  - **`public/200.html`** present in the build (current approach), **or**
+  - Netlify **`_redirects`** file with:
+
+```txt
+/*  /index.html  200
+```
+
+### 2) React context split for better DX and tests
+
+Previously the cart context/provider lived in one file, which triggered a Fast Refresh
+warning and made tests noisier.
+
+- **New structure**
+  - `src/context/cart.ts` — exports **`CartContext`** + **`useCart`** (no component code)
+  - `src/context/CartProvider.tsx` — exports **`CartProvider`** component
+- **Benefits**
+  - Removes Fast Refresh warning.
+  - Clearer imports: use **`useCart`** where needed, and wrap trees with **`CartProvider`** once.
+  - Simpler test setup—wrap tested components with **`CartProvider`**.
+
+<!-- markdownlint-disable MD033 -->
+
+<summary>Example imports</summary>
+
+```tsx
+// main.tsx
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import { CartProvider } from '@/context/CartProvider';
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <CartProvider>
+      <App />
+    </CartProvider>
+  </StrictMode>
+);
+```
+
+```tsx
+// any component/page
+import { useCart } from '@/context/cart';
+```
+
+</details>
+
 ## 👩‍💻 Author
 
 Hilde-Kathrine | [GitHub](https://github.com/Entav78)
@@ -121,5 +178,3 @@ Hilde-Kathrine | [GitHub](https://github.com/Entav78)
 ## 📄 License
 
 MIT — free to use and modify as you like.
-
-

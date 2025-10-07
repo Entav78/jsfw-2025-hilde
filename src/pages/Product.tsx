@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { API_PRODUCTS } from '@/constants/api';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/context/cart';
 import { toast } from 'react-hot-toast';
 
 interface ProductData {
